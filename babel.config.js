@@ -8,9 +8,9 @@ module.exports = function (api) {
         {
           alias: {
             "@constants": "./constants/index.tsx",
+            "@screens": "./screens",
             //         "@components": "./components",
             //         "@redux": "./redux/actions.tsx",
-            //         "@screens": "./screens",
             //         "@assets": "./assets",
             //         "@lib": "./lib",
             //         "@navigator": "./navigator",

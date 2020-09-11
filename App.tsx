@@ -8,7 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Images, argonTheme } from "@constants";
-
+import AppContainer from "./navigator";
 const assetImages = [Images.Logo];
 const cacheImages = (images: Array<any>) => {
   return images.map((image: any) => {
@@ -45,8 +45,7 @@ const App = () => {
     <GalioProvider theme={argonTheme}>
       <SafeAreaProvider>
         <Block flex style={styles.container}>
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <StatusBar style="auto" />
+          <AppContainer />
         </Block>
       </SafeAreaProvider>
     </GalioProvider>
