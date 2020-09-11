@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "USA Elections",
+    "privacy": "hidden",
+    "slug": "usa-election",
+    "sdkVersion": "38.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "platforms": ["android", "ios"],
+    "backgroundColor": "#ffffff",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "androidStatusBar": { "translucent": true },
+    "androidNavigationBar": { "visible": "sticky-immersive" },
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": { "permissions": ["ACCESS_COARSE_LOCATION","ACCESS_FINE_LOCATION"] }
+  }
+}
