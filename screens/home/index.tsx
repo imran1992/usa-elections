@@ -6,6 +6,7 @@ import * as Permissions from "expo-permissions";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 const Home = ({ navigation }: { navigation: Object }) => {
+  const { top } = useSafeAreaInsets();
   const [busy, setBusy] = useState(true);
   const [thisManMarker, setThisManMarker] = useState({
     latitude: 0,
@@ -15,7 +16,7 @@ const Home = ({ navigation }: { navigation: Object }) => {
     latitude: 0,
     longitude: 0,
   });
-  const { top } = useSafeAreaInsets();
+
   useEffect(() => {
     (async () => {
       try {
@@ -45,18 +46,16 @@ const Home = ({ navigation }: { navigation: Object }) => {
     })();
   }, []);
   return (
-    <Block flex style={{ paddingTop: top,backgroundColor:'#fff' }}>
-      <MapView
-        region={{
-          ...thisManMarker,
-          latitudeDelta: 0.5,
-          longitudeDelta: 0.5,
-        }}
-        style={{ flex: 1 }}
-        //showsUserLocation
-        provider={PROVIDER_GOOGLE}
-      />
-    </Block>
+    <MapView
+      region={{
+        ...thisManMarker,
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      }}
+      style={{ flex: 1, paddingTop: top }}
+      //showsUserLocation
+      provider={PROVIDER_GOOGLE}
+    />
   );
 };
 const styles = StyleSheet.create({

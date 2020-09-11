@@ -15,7 +15,7 @@ export default () => {
   return (
     <Navigator
       tabBarOptions={{
-        activeTintColor: argonTheme.COLORS.ERROR,
+        //activeTintColor: argonTheme.COLORS.ERROR,
         inactiveTintColor: argonTheme.COLORS.MUTED,
         tabStyle: { justifyContent: 'center', alignItems: "center" },
         showLabel: false,
