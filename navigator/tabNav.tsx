@@ -7,7 +7,7 @@ import { argonTheme } from "@constants";
 
 //import { useSelector } from "react-redux";
 //==================================================================
-import TabbedHome from "@screens/home/index.tsx";
+import TabbedHome from "@screens/home";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const IconMutiplyer = 1.3;
@@ -17,7 +17,7 @@ export default () => {
       tabBarOptions={{
         activeTintColor: argonTheme.COLORS.ERROR,
         inactiveTintColor: argonTheme.COLORS.MUTED,
-        tabStyle: { justifyContent: "center", alignItems: "center" },
+        tabStyle: { justifyContent: 'center', alignItems: "center" },
         showLabel: false,
       }}
     >

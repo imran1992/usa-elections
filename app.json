@@ -7,23 +7,36 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["android", "ios"],
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#000000",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "androidStatusBar": { "translucent": true },
-    "androidNavigationBar": { "visible": "sticky-immersive" },
+    "androidStatusBar": {
+      "translucent": true,
+      "barStyle": "dark-content",
+      "backgroundColor": "#00000000"
+    },
+    "androidNavigationBar": {
+      "visible": "leanback",
+      "barStyle": "light-content",
+      "backgroundColor": "#000"
+    },
     "updates": {
       "enabled": true,
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "buildNumber": "0.0.1"
     },
-    "android": { "permissions": ["ACCESS_COARSE_LOCATION","ACCESS_FINE_LOCATION"] }
+    "android": {
+      "versionCode": 1,
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    }
   }
 }
