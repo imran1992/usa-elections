@@ -8,15 +8,15 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@components": ["./components"],
-    //   "@redux": ["./redux/actions.tsx"],
-    //   "@screens": ["./screens"],
-    //   "@assets": ["./assets"],
-    //   "@lib": ["./lib"],
-    //   "@constants": ["./constants/index.tsx"],
-    //   "@navigator": ["./navigator"]
-    // }
+    "baseUrl": "./",
+    "paths": {
+      "@constants": ["./constants/index.tsx"]
+      //   "@components": ["./components"],
+      //   "@redux": ["./redux/actions.tsx"],
+      //   "@screens": ["./screens"],
+      //   "@assets": ["./assets"],
+      //   "@lib": ["./lib"],
+      //   "@navigator": ["./navigator"]
+    }
   }
 }
