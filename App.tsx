@@ -1,15 +1,14 @@
 import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image } from "react-native";
-import { Block, Text, GalioProvider } from "galio-framework";
+import { Block, GalioProvider } from "galio-framework";
 import { AppLoading } from "expo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Images, argonTheme } from "@constants";
 import AppContainer from "./navigator";
-const assetImages = [Images.Logo];
+const assetImages = [Images.Logo, Images.Donkey, Images.Elephant];
 const cacheImages = (images: Array<any>) => {
   return images.map((image: any) => {
     if (typeof image === "string") {

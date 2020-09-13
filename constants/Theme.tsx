@@ -34,5 +34,9 @@ export default {
     myPrime: "#007AFF",
     mute: "#F1F3F6",
     dul: "#F3F3F3",
+    redSide: "#f06292",
+    redSideP: "#ba2d65",
+    blueSide: "#90caf9",
+    blueSideP: "#5d99c6",
   },
 };

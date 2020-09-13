@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { Block } from "galio-framework";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { Block, Text } from "galio-framework";
+import {
+  widthPercentageToDP as W2DP,
+  heightPercentageToDP as H2DP,
+} from "react-native-responsive-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Bar } from "react-native-progress";
+import { argonTheme } from "@constants";
+import { USA_MAP } from "@components";
+import { APIs } from "@lib";
+import { StatesTypes } from "../../lib/interFaces";
 const Home = ({ navigation }: { navigation: Object }) => {
   const { top } = useSafeAreaInsets();
   const [busy, setBusy] = useState(true);
+  const [stats, setStats] = useState<StatesTypes[] | []>([]);
   const [thisManMarker, setThisManMarker] = useState({
-    latitude: 0,
-    longitude: 0,
-  });
-  const [selectedMarker, setSelectedMarker] = useState({
     latitude: 0,
     longitude: 0,
   });
@@ -44,23 +48,38 @@ const Home = ({ navigation }: { navigation: Object }) => {
         console.log("ERROR", JSON.stringify(e));
       }
     })();
+    APIs.fetchStats().then(({ data }: { data: Array<StatesTypes> }) => {
+      if (Array.isArray(data)) {
+        setStats(data);
+        //console.log("data", data);
+      }
+    });
   }, []);
+
   return (
-    <MapView
-      region={{
-        ...thisManMarker,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
-      }}
-      style={{ flex: 1, paddingTop: top }}
-      //showsUserLocation
-      provider={PROVIDER_GOOGLE}
-    />
+    <Block flex style={{ paddingTop: top }}>
+      <Block row middle center>
+        <Bar
+          progress={0.7}
+          width={W2DP(80)}
+          color={argonTheme.COLORS.redSide}
+          unfilledColor={argonTheme.COLORS.blueSide}
+          borderWidth={0}
+          useNativeDriver={true}
+          animationType={"spring"}
+        />
+      </Block>
+      <USA_MAP
+        stats={stats}
+        width={W2DP(100)}
+        height={W2DP(68)}
+        onPress={(State: string) => {
+          console.log("State", State);
+        }}
+      />
+      <Text style={{ fontFamily: "open-sans-regular" }}>ddd</Text>
+    </Block>
   );
 };
-const styles = StyleSheet.create({
-  mapStyle: {
-    flex: 1,
-  },
-});
+
 export default Home;

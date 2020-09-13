@@ -11,11 +11,11 @@
     "baseUrl": "./",
     "paths": {
       "@constants": ["./constants/index.tsx"],
-      "@screens": ["./screens"]
-      //   "@components": ["./components"],
+      "@components": ["./components/index.tsx"],
+      "@lib": ["./lib/index.tsx"],
+      "@screens": ["./screens"],
+      "@assets": ["./assets"]
       //   "@redux": ["./redux/actions.tsx"],
-      //   "@assets": ["./assets"],
-      //   "@lib": ["./lib"],
       //   "@navigator": ["./navigator"]
     }
   }
