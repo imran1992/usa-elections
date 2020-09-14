@@ -4,16 +4,18 @@ import data from "./USAMapDimensions";
 import { StatesTypes } from "../../lib/InterFaces";
 import { argonTheme } from "@constants";
 const USAMap = ({
+  setTagOfWarRop = () => {},
   onPress = () => {},
   defaultFill = "#D3D3D3",
   width = 959,
   height = 593,
-  title = "Blank US states map",
+  title = "",
   top = 0,
   customize = {},
   stats = [],
 }: {
   onPress?: Function;
+  setTagOfWarRop?: Function;
   customize?: Object;
   defaultFill?: string;
   width?: number;
@@ -26,6 +28,7 @@ const USAMap = ({
   const [modifiedStates, setModifiedStates] = useState<Object>(null);
   useEffect(() => {
     if (stats.length > 0) {
+      let count = 0;
       let dataStates: Object = data();
       stats.forEach(
         (
@@ -37,13 +40,14 @@ const USAMap = ({
           },
           index
         ) => {
-          dataStates[STATE_ABBREVIATION].vote =
-            parseInt(R_ORIGINAL_PERCENTAGE) > parseInt(P_ORIGINAL_PERCENTAGE)
-              ? true
-              : false;
+          const isIt =
+            parseInt(R_ORIGINAL_PERCENTAGE) > parseInt(P_ORIGINAL_PERCENTAGE);
+          dataStates[STATE_ABBREVIATION].vote = isIt ? true : false;
+          isIt === true && count++;
         }
       );
       setModifiedStates(dataStates);
+      setTagOfWarRop(count / stats.length);
     }
   }, [stats]);
 
@@ -88,7 +92,7 @@ const USAMap = ({
 
   return (
     <Svg
-      style={{ backgroundColor: "#113335" }}
+      //style={{ backgroundColor: "#113335" }}
       width={width}
       height={height}
       viewBox="0 0 959 594"

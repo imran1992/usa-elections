@@ -8,7 +8,7 @@ import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Images, argonTheme } from "@constants";
 import AppContainer from "./navigator";
-const assetImages = [Images.Logo, Images.Donkey, Images.Elephant];
+const assetImages = [Images.Logo, Images.Democratic, Images.Republican];
 const cacheImages = (images: Array<any>) => {
   return images.map((image: any) => {
     if (typeof image === "string") {

@@ -9,7 +9,7 @@ module.exports = function (api) {
           alias: {
             "@constants": "./constants/index.tsx",
             "@components": "./components/index.tsx",
-            "@lib": "./lib/index.tsx",
+            "@lib": "./lib",
             "@screens": "./screens",
             "@assets": "./assets",
 

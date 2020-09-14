@@ -1,2 +1,3 @@
 import USA_MAP from "./usa_map";
-export { USA_MAP };
+import TopBar from "./TopBar";
+export { USA_MAP, TopBar };

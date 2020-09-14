@@ -1,9 +1,9 @@
 // local imgs
 const Logo = require("../assets/icon.png");
-const Donkey = require("../assets/dockey.png");
-const Elephant = require("../assets/elephant.png");
+const Democratic = require("../assets/democratic.png");
+const Republican = require("../assets/republican.png");
 export default {
   Logo,
-  Elephant,
-  Donkey,
+  Republican,
+  Democratic,
 };

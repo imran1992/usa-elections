@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Image } from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { Block, Text } from "galio-framework";
@@ -7,15 +8,15 @@ import {
   heightPercentageToDP as H2DP,
 } from "react-native-responsive-screen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Bar } from "react-native-progress";
-import { argonTheme } from "@constants";
-import { USA_MAP } from "@components";
-import { APIs } from "@lib";
-import { StatesTypes } from "../../lib/interFaces";
+import { argonTheme, Fonts, Images } from "@constants";
+import { USA_MAP, TopBar } from "@components";
+import { APIs } from "@lib/index";
+import { StatesTypes } from "@lib/interFaces";
 const Home = ({ navigation }: { navigation: Object }) => {
   const { top } = useSafeAreaInsets();
   const [busy, setBusy] = useState(true);
   const [stats, setStats] = useState<StatesTypes[] | []>([]);
+  const [progress, setProgress] = useState(0);
   const [thisManMarker, setThisManMarker] = useState({
     latitude: 0,
     longitude: 0,
@@ -57,27 +58,17 @@ const Home = ({ navigation }: { navigation: Object }) => {
   }, []);
 
   return (
-    <Block flex style={{ paddingTop: top }}>
-      <Block row middle center>
-        <Bar
-          progress={0.7}
-          width={W2DP(80)}
-          color={argonTheme.COLORS.redSide}
-          unfilledColor={argonTheme.COLORS.blueSide}
-          borderWidth={0}
-          useNativeDriver={true}
-          animationType={"spring"}
-        />
-      </Block>
+    <Block flex style={{ paddingTop: top, paddingHorizontal: W2DP(1) }}>
+      <TopBar progress={progress} />
       <USA_MAP
+        setTagOfWarRop={setProgress}
         stats={stats}
-        width={W2DP(100)}
-        height={W2DP(68)}
+        width={W2DP(98)}
+        height={W2DP(66)}
         onPress={(State: string) => {
           console.log("State", State);
         }}
       />
-      <Text style={{ fontFamily: "open-sans-regular" }}>ddd</Text>
     </Block>
   );
 };
