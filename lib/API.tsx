@@ -1,7 +1,7 @@
 import Axios from "axios";
 const axios = Axios.create({
   baseURL: "https://lemotivate.com",
-  timeout: 1000,
+  //timeout: 000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

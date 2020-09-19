@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { Block, Text } from "galio-framework";
@@ -12,6 +11,7 @@ import { argonTheme, Fonts, Images } from "@constants";
 import { USA_MAP, TopBar } from "@components";
 import { APIs } from "@lib/index";
 import { StatesTypes } from "@lib/interFaces";
+
 const Home = ({ navigation }: { navigation: Object }) => {
   const { top } = useSafeAreaInsets();
   const [busy, setBusy] = useState(true);
@@ -58,7 +58,7 @@ const Home = ({ navigation }: { navigation: Object }) => {
   }, []);
 
   return (
-    <Block flex style={{ paddingTop: top, paddingHorizontal: W2DP(1) }}>
+    <Block flex style={{ paddingTop: top, paddingHorizontal: W2DP(1), }}>
       <TopBar progress={progress} />
       <USA_MAP
         setTagOfWarRop={setProgress}

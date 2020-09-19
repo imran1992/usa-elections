@@ -1,14 +1,15 @@
 interface StatesTypes {
-  ID: string;
   STATE_NAME: string;
   STATE_ABBREVIATION: string;
-  P_ORIGINAL_VOTES: string;
+  D_ORIGINAL_VOTES: string;
   R_ORIGINAL_VOTES: string;
-  P_ORIGINAL_PERCENTAGE: string;
+  D_ORIGINAL_PERCENTAGE: string;
   R_ORIGINAL_PERCENTAGE: string;
-  P_PERCENTAGE: string;
+  D_PERCENTAGE: string;
   R_PERCENTAGE: string;
   STATUS: string;
+  WINNER_ORIGINAL: string;
+  ELECTORAL_COLLEGE: string;
 }
 
 export { StatesTypes };

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Svg, { G, Path } from "react-native-svg";
 import data from "./USAMapDimensions";
 import { StatesTypes } from "../../lib/InterFaces";
 import { argonTheme } from "@constants";
+import { Platform } from "react-native";
+import { Picker, PickerIOS } from "@react-native-community/picker";
 const USAMap = ({
   setTagOfWarRop = () => {},
   onPress = () => {},
@@ -13,6 +15,7 @@ const USAMap = ({
   top = 0,
   customize = {},
   stats = [],
+  outerSetSelectedState = () => {},
 }: {
   onPress?: Function;
   setTagOfWarRop?: Function;
@@ -23,6 +26,7 @@ const USAMap = ({
   title?: String;
   top?: number;
   stats?: Array<StatesTypes>;
+  outerSetSelectedState: Function;
 }) => {
   const [selectedState, setSelectedState] = useState<String>("");
   const [modifiedStates, setModifiedStates] = useState<Object>(null);
@@ -34,14 +38,14 @@ const USAMap = ({
         (
           {
             STATE_ABBREVIATION,
-            R_ORIGINAL_PERCENTAGE,
-            P_ORIGINAL_PERCENTAGE,
+            R_PERCENTAGE,
+            ELECTORAL_COLLEGE,
+            D_PERCENTAGE,
             STATE_NAME,
           },
           index
         ) => {
-          const isIt =
-            parseInt(R_ORIGINAL_PERCENTAGE) > parseInt(P_ORIGINAL_PERCENTAGE);
+          const isIt = parseInt(R_PERCENTAGE) > parseInt(D_PERCENTAGE);
           dataStates[STATE_ABBREVIATION].vote = isIt ? true : false;
           isIt === true && count++;
         }
@@ -91,14 +95,44 @@ const USAMap = ({
   };
 
   return (
-    <Svg
-      //style={{ backgroundColor: "#113335" }}
-      width={width}
-      height={height}
-      viewBox="0 0 959 594"
-    >
-      <G>{buildPaths()}</G>
-    </Svg>
+    <Fragment>
+      <Svg
+        //style={{ backgroundColor: "#113335" }}
+        width={width}
+        height={height}
+        viewBox="0 0 959 594"
+      >
+        <G>{buildPaths()}</G>
+      </Svg>
+      {Platform.OS === "android" ? (
+        <Picker
+          selectedValue={selectedState}
+          onValueChange={setSelectedState}
+          mode="dropdown"
+        >
+          {stats.map((item: StatesTypes, index: number) => (
+            <Picker.Item
+              key={item.STATE_ABBREVIATION}
+              label={item.STATE_NAME}
+              value={item.STATE_ABBREVIATION}
+            />
+          ))}
+        </Picker>
+      ) : (
+        <PickerIOS
+          selectedValue={selectedState}
+          onValueChange={setSelectedState}
+        >
+          {stats.map((item: StatesTypes, index: number) => (
+            <PickerIOS.Item
+              key={item.STATE_ABBREVIATION}
+              label={item.STATE_NAME}
+              value={item.STATE_ABBREVIATION}
+            />
+          ))}
+        </PickerIOS>
+      )}
+    </Fragment>
   );
 };
 
