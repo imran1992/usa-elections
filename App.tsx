@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
-import { StyleSheet, Image } from "react-native";
+import React, { useState,useEffect } from "react";
+import { StyleSheet, Image,StatusBar } from "react-native";
 import { Block, GalioProvider } from "galio-framework";
 import { AppLoading } from "expo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -24,7 +24,7 @@ const App = () => {
   const _loadResourcesAsync = async () => {
     return Promise.all([...cacheImages(assetImages)]);
   };
-
+useEffect(()=>{StatusBar.setBarStyle('dark-content')},[])
   const _handleLoadingError = (error: any) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry test

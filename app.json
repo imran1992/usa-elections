@@ -20,9 +20,9 @@
       "backgroundColor": "#00000000"
     },
     "androidNavigationBar": {
-      "visible": "leanback",
-      "barStyle": "light-content",
-      "backgroundColor": "#000"
+      "visible": "immersive",
+      "barStyle": "dark-content",
+      "backgroundColor": "#00000000"
     },
     "updates": {
       "enabled": true,

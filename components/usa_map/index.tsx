@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { Block } from "galio-framework";
 import Svg, { G, Path } from "react-native-svg";
 import data from "./USAMapDimensions";
 import { StatesTypes } from "../../lib/InterFaces";
 import { argonTheme } from "@constants";
 import { Platform } from "react-native";
 import { Picker, PickerIOS } from "@react-native-community/picker";
+import { widthPercentageToDP as W2DP } from "react-native-responsive-screen";
 const USAMap = ({
   setTagOfWarRop = () => {},
   onPress = () => {},
@@ -23,12 +25,12 @@ const USAMap = ({
   defaultFill?: string;
   width?: number;
   height?: number;
-  title?: String;
+  title?: string;
   top?: number;
   stats?: Array<StatesTypes>;
   outerSetSelectedState: Function;
 }) => {
-  const [selectedState, setSelectedState] = useState<String>("");
+  const [selectedState, setSelectedState] = useState<string>("AL");
   const [modifiedStates, setModifiedStates] = useState<Object>(null);
   useEffect(() => {
     if (stats.length > 0) {
@@ -80,8 +82,6 @@ const USAMap = ({
                 : yup
                 ? argonTheme.COLORS.blueSideP
                 : argonTheme.COLORS.blueSide
-              : yup
-              ? "#444"
               : defaultFill
           }
           onPress={() => {
@@ -91,7 +91,7 @@ const USAMap = ({
       );
       paths.push(path);
     }
-    return paths;
+    return <G>{paths}</G>;
   };
 
   return (
@@ -102,36 +102,47 @@ const USAMap = ({
         height={height}
         viewBox="0 0 959 594"
       >
-        <G>{buildPaths()}</G>
+        {buildPaths()}
       </Svg>
-      {Platform.OS === "android" ? (
-        <Picker
-          selectedValue={selectedState}
-          onValueChange={setSelectedState}
-          mode="dropdown"
-        >
-          {stats.map((item: StatesTypes, index: number) => (
-            <Picker.Item
-              key={item.STATE_ABBREVIATION}
-              label={item.STATE_NAME}
-              value={item.STATE_ABBREVIATION}
-            />
-          ))}
-        </Picker>
-      ) : (
-        <PickerIOS
-          selectedValue={selectedState}
-          onValueChange={setSelectedState}
-        >
-          {stats.map((item: StatesTypes, index: number) => (
-            <PickerIOS.Item
-              key={item.STATE_ABBREVIATION}
-              label={item.STATE_NAME}
-              value={item.STATE_ABBREVIATION}
-            />
-          ))}
-        </PickerIOS>
-      )}
+      <Block middle>
+        {Platform.OS === "android" ? (
+          <Block
+            height={40}
+            width={W2DP(90)}
+            style={{ backgroundColor: "#8898AA", borderRadius: 20 }}
+          >
+            <Picker
+              selectedValue={selectedState}
+              onValueChange={setSelectedState}
+              mode="dialog"
+              style={{ height: 40, width: W2DP(90), color: "#fff" }}
+              prompt={"Pick State"}
+            >
+              {stats.map((item: StatesTypes, index: number) => (
+                <Picker.Item
+                  key={item.STATE_ABBREVIATION}
+                  label={item.STATE_NAME}
+                  value={item.STATE_ABBREVIATION}
+                />
+              ))}
+            </Picker>
+          </Block>
+        ) : (
+          <PickerIOS
+            selectedValue={selectedState}
+            onValueChange={setSelectedState}
+            style={{ width: W2DP(90) }}
+          >
+            {stats.map((item: StatesTypes, index: number) => (
+              <PickerIOS.Item
+                key={item.STATE_ABBREVIATION}
+                label={item.STATE_NAME}
+                value={item.STATE_ABBREVIATION}
+              />
+            ))}
+          </PickerIOS>
+        )}
+      </Block>
     </Fragment>
   );
 };

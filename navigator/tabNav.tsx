@@ -8,6 +8,7 @@ import { argonTheme } from "@constants";
 //import { useSelector } from "react-redux";
 //==================================================================
 import TabbedHome from "@screens/home";
+import TabbedAbout from "@screens/about";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 const IconMutiplyer = 1.3;
@@ -15,9 +16,9 @@ export default () => {
   return (
     <Navigator
       tabBarOptions={{
-        //activeTintColor: argonTheme.COLORS.ERROR,
+        activeTintColor: argonTheme.COLORS.PRIMARY,
         inactiveTintColor: argonTheme.COLORS.MUTED,
-        tabStyle: { justifyContent: 'center', alignItems: "center" },
+        tabStyle: { justifyContent: "center", alignItems: "center" },
         showLabel: false,
       }}
     >
@@ -28,6 +29,16 @@ export default () => {
           //tabBarLabel: () => null,
           tabBarIcon: ({ focused, color, size }) => (
             <Icon name={`home`} size={size * IconMutiplyer} color={color} />
+          ),
+        }}
+      />
+      <Screen
+        name="tabbedAbout"
+        component={TabbedAbout}
+        options={{
+          //tabBarLabel: () => null,
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon name={'info'} size={size * IconMutiplyer} color={color} />
           ),
         }}
       />
