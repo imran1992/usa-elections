@@ -14,7 +14,10 @@ const TopBar = ({
   curentSelected: string;
   currentObject: object;
 }) => {
-  const predictedOne = curentSelected === 'ELECTORAL_COUNT_PREDICTED';
+  const predictedOne = curentSelected === "ELECTORAL_COUNT_PREDICTED";
+  const upr = predictedOne
+    ? currentObject.R_PERCENTAGE > currentObject.D_PERCENTAGE
+    : currentObject.R_ORIGINAL_PERCENTAGE > currentObject.D_ORIGINAL_PERCENTAGE;
   return (
     <Block
       middle
@@ -26,8 +29,17 @@ const TopBar = ({
       }}
       width={W2DP(95)}
     >
-      <Block width={W2DP(90)} style={{ paddingVertical: H2DP(1) }}>
-        <Block row style={{ alignItems: "center" }}>
+      <Block
+        width={W2DP(90)}
+        style={{
+          paddingVertical: H2DP(1),
+          flexDirection: upr ? "column" : "column-reverse",
+        }}
+      >
+        <Block
+          row
+          style={{ alignItems: "center", marginTop: upr ? 0 : W2DP(4) }}
+        >
           <AnimatedOrDull source={Images.Republican} animate={false} />
           <Block style={{ marginLeft: W2DP(2) }}>
             <Text small bold style={{ color: argonTheme.COLORS.redSide }}>
@@ -40,7 +52,10 @@ const TopBar = ({
             </Text>
           </Block>
         </Block>
-        <Block row style={{ alignItems: "center", marginTop: W2DP(4) }}>
+        <Block
+          row
+          style={{ alignItems: "center", marginTop: upr ? W2DP(4) : 0 }}
+        >
           <AnimatedOrDull source={Images.Democratic} animate={false} />
           <Block style={{ marginLeft: W2DP(2) }}>
             <Text small bold style={{ color: argonTheme.COLORS.blueSide }}>
