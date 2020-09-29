@@ -8,38 +8,77 @@ import {
 import { Bar } from "react-native-progress";
 import { argonTheme, Images } from "@constants";
 import * as Animated from "react-native-animatable";
-const TopBar = ({ progress = 0 }: { progress?: number }) => {
+const ShouldAnimateDem = (STATE) => {
+  if (STATE !== undefined) {
+    const { DEMOCRATIC, REPUBLICAN } = STATE;
+    return parseInt(DEMOCRATIC) >= parseInt(REPUBLICAN) ? true : false;
+  }
+  return false;
+};
+const ShouldAnimateRep = (STATE) => {
+  if (STATE !== undefined) {
+    const { DEMOCRATIC, REPUBLICAN } = STATE;
+    return parseInt(DEMOCRATIC) <= parseInt(REPUBLICAN) ? true : false;
+  }
+  return false;
+};
+const TopBar = ({
+  currentStats = "ELECTORAL_COUNT_PREDICTED",
+  countryStats = {},
+}: {
+  currentStats?: string;
+  countryStats?: object;
+}) => {
+  const prog = countryStats[currentStats]
+    ? parseInt(countryStats[currentStats].REPUBLICAN) / 538
+    : 0;
+
+  console.log("prog", prog);
   return (
-    <Block middle>
+    <Block middle style={{ marginVertical: H2DP(2) }}>
       <Block
         row
         middle
         width={W2DP(90)}
         space="between"
-        style={{ paddingVertical: H2DP(1) }}
+        style={{ paddingVertical: H2DP(2) }}
       >
         <Block row>
-          <AnimatedOrDull source={Images.Republican} animate={true} />
-          <Block style={{marginLeft:W2DP(2)}}>
-            <Text h6>206</Text>
+          <AnimatedOrDull
+            source={Images.Republican}
+            animate={ShouldAnimateRep(countryStats[currentStats])}
+          />
+          <Block style={{ marginLeft: W2DP(2) }}>
+            <Text h6>
+              {countryStats[currentStats]
+                ? countryStats[currentStats].REPUBLICAN
+                : 0}
+            </Text>
             <Text small muted bold>
               Republican
             </Text>
           </Block>
         </Block>
         <Block row>
-          <Block right={true} style={{marginRight:W2DP(2)}}>
-            <Text h6>300</Text>
+          <Block right={true} style={{ marginRight: W2DP(2) }}>
+            <Text h6>
+              {countryStats[currentStats]
+                ? countryStats[currentStats].DEMOCRATIC
+                : 0}
+            </Text>
             <Text small muted bold>
-              Democratic
+              Democrate
             </Text>
           </Block>
-          <AnimatedOrDull source={Images.Democratic} animate={true} />
+          <AnimatedOrDull
+            source={Images.Democratic}
+            animate={ShouldAnimateDem(countryStats[currentStats])}
+          />
         </Block>
       </Block>
-      {progress ? (
+      {prog ? (
         <Bar
-          progress={progress}
+          progress={prog}
           width={W2DP(90)}
           height={15}
           borderRadius={5}
@@ -52,7 +91,7 @@ const TopBar = ({ progress = 0 }: { progress?: number }) => {
       ) : (
         <Block
           width={W2DP(90)}
-          height={10}
+          height={15}
           style={{ backgroundColor: argonTheme.COLORS.MUTED, borderRadius: 5 }}
         />
       )}
@@ -73,12 +112,12 @@ const AnimatedOrDull = ({
       easing={"ease-in-out-cubic"}
       iterationCount={"infinite"}
       style={{
-        width: W2DP(11),
-        height: W2DP(11),
-        borderRadius: W2DP(5.5),
+        width: W2DP(12),
+        height: W2DP(12),
+        borderRadius: W2DP(6),
       }}
-      width={W2DP(11)}
-      height={W2DP(11)}
+      width={W2DP(12)}
+      height={W2DP(12)}
       source={source}
     />
   ) : (

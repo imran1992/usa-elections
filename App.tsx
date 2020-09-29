@@ -1,13 +1,18 @@
 import "react-native-gesture-handler";
-import React, { useState,useEffect } from "react";
-import { StyleSheet, Image,StatusBar } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Image, StatusBar } from "react-native";
+import {
+  setStatusBarBackgroundColor,
+  setStatusBarTranslucent,
+  setStatusBarStyle,
+} from "expo-status-bar";
 import { Block, GalioProvider } from "galio-framework";
 import { AppLoading } from "expo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
 import { Images, argonTheme } from "@constants";
-import AppContainer from "./navigator";
+import AppContainer from "./screens/home";
 const assetImages = [Images.Logo, Images.Democratic, Images.Republican];
 const cacheImages = (images: Array<any>) => {
   return images.map((image: any) => {
@@ -24,7 +29,10 @@ const App = () => {
   const _loadResourcesAsync = async () => {
     return Promise.all([...cacheImages(assetImages)]);
   };
-useEffect(()=>{StatusBar.setBarStyle('dark-content')},[])
+  useEffect(() => {
+    setStatusBarStyle("dark-content");
+    setStatusBarTranslucent(true);
+  }, []);
   const _handleLoadingError = (error: any) => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry test

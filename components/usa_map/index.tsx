@@ -7,6 +7,7 @@ import { argonTheme } from "@constants";
 import { Platform } from "react-native";
 import { Picker, PickerIOS } from "@react-native-community/picker";
 import { widthPercentageToDP as W2DP } from "react-native-responsive-screen";
+import StateWise from "../StateWiseScore";
 const USAMap = ({
   setTagOfWarRop = () => {},
   onPress = () => {},
@@ -18,7 +19,9 @@ const USAMap = ({
   customize = {},
   stats = [],
   outerSetSelectedState = () => {},
+  currentCheck = "ELECTORAL_COUNT_PREDICTED",
 }: {
+  currentCheck?: string;
   onPress?: Function;
   setTagOfWarRop?: Function;
   customize?: Object;
@@ -32,6 +35,7 @@ const USAMap = ({
 }) => {
   const [selectedState, setSelectedState] = useState<string>("AL");
   const [modifiedStates, setModifiedStates] = useState<Object>(null);
+  const [currentState, setcurrentState] = useState<object>({});
   useEffect(() => {
     if (stats.length > 0) {
       let count = 0;
@@ -41,32 +45,55 @@ const USAMap = ({
           {
             STATE_ABBREVIATION,
             R_PERCENTAGE,
-            ELECTORAL_COLLEGE,
             D_PERCENTAGE,
+            D_ORIGINAL_PERCENTAGE,
+            R_ORIGINAL_PERCENTAGE,
+            ELECTORAL_COLLEGE,
             STATE_NAME,
           },
           index
         ) => {
-          const isIt = parseInt(R_PERCENTAGE) > parseInt(D_PERCENTAGE);
+          const isItCurrent = currentCheck === "ELECTORAL_COUNT_PREDICTED";
+          const isIt =
+            parseInt(isItCurrent ? R_PERCENTAGE : R_ORIGINAL_PERCENTAGE) >
+            parseInt(isItCurrent ? D_PERCENTAGE : D_ORIGINAL_PERCENTAGE);
           dataStates[STATE_ABBREVIATION].vote = isIt ? true : false;
+          dataStates[STATE_ABBREVIATION].ourData = {
+            STATE_ABBREVIATION,
+            R_PERCENTAGE,
+            D_PERCENTAGE,
+            D_ORIGINAL_PERCENTAGE,
+            R_ORIGINAL_PERCENTAGE,
+          };
           isIt === true && count++;
         }
       );
       setModifiedStates(dataStates);
       setTagOfWarRop(count / stats.length);
+      // setSelectedStateIndex(
+      //   stats.findIndex((item) => item.STATE_ABBREVIATION === selectedState)
+      // );
     }
-  }, [stats]);
+  }, [stats, currentCheck]);
 
-  const clickHandler = (abbreviation: String) => {
-    setSelectedState(abbreviation);
-    onPress(abbreviation);
+  const clickHandler = ({
+    STATE_ABBREVIATION,
+    ...rest
+  }: {
+    STATE_ABBREVIATION: string;
+  }) => {
+    setSelectedState(STATE_ABBREVIATION);
+    onPress(STATE_ABBREVIATION);
+    setcurrentState({ STATE_ABBREVIATION, ...rest });
   };
 
   const buildPaths = () => {
     const paths = [];
     let dataStates: Object = modifiedStates ? modifiedStates : data();
     for (let stateKey in dataStates) {
-      const { name, dimensions, abbreviation, vote } = dataStates[stateKey];
+      const { name, dimensions, abbreviation, vote, ourData } = dataStates[
+        stateKey
+      ];
       const yup = selectedState === abbreviation;
       const path = (
         <USAState
@@ -85,7 +112,8 @@ const USAMap = ({
               : defaultFill
           }
           onPress={() => {
-            clickHandler(abbreviation);
+            console.log("oho", ourData);
+            clickHandler(ourData);
           }}
         />
       );
@@ -96,6 +124,12 @@ const USAMap = ({
 
   return (
     <Fragment>
+      <StateWise
+        currentObject={
+          currentState.STATE_ABBREVIATION ? currentState : stats[0]
+        }
+        curentSelected={currentCheck}
+      />
       <Svg
         //style={{ backgroundColor: "#113335" }}
         width={width}
@@ -107,9 +141,12 @@ const USAMap = ({
       <Block middle>
         {Platform.OS === "android" ? (
           <Block
-            height={40}
+            height={45}
             width={W2DP(90)}
-            style={{ backgroundColor: "#8898AA", borderRadius: 20 }}
+            style={{
+              backgroundColor: argonTheme.COLORS.HEADER,
+              borderRadius: 4,
+            }}
           >
             <Picker
               selectedValue={selectedState}
