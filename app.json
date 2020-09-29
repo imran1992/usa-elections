@@ -1,12 +1,15 @@
 {
   "expo": {
-    "name": "USA Elections",
+    "name": "Election 2020",
     "privacy": "hidden",
-    "slug": "usa-election",
+    "slug": "usa-election-2020",
     "sdkVersion": "38.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "platforms": ["android", "ios"],
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "backgroundColor": "#000000",
     "icon": "./assets/icon.png",
     "splash": {
@@ -29,14 +32,20 @@
       "fallbackToCacheTimeout": 0,
       "checkAutomatically": "ON_LOAD"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "buildNumber": "0.0.1"
     },
     "android": {
       "versionCode": 1,
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.adnannoor.usaelection2020"
     }
   }
 }
